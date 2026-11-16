@@ -1,0 +1,19 @@
+# sistem operasi
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# dependensi & artefak build
+node_modules/
+dist/
+build/
+*.zip
+*.log
+
+# pengujian lokal
+test-results/
+screenshots/

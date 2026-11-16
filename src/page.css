@@ -1,0 +1,82 @@
+/* VeilFace — gaya yang disuntik ke halaman.
+ * Palet "ember": bara amber + magenta panas + lime di atas arang-plum. */
+
+html {
+  --vf-sidebar-w: 25vw;
+  --vf-amber: #ffb020;
+  --vf-flame: #ff6b3d;
+  --vf-magenta: #ff3d71;
+  --vf-lime: #b4ff39;
+  --vf-mint: #39ffb4;
+  --vf-coal: #0d0810;
+}
+
+/* ---------- overlay sensor ---------- */
+.vf-overlay {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  pointer-events: none !important;
+  z-index: 2147483640 !important;
+  transform: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  background: transparent !important;
+}
+html.vf-off .vf-overlay { display: none !important; }
+
+/* mode tangkapan layar: animasi overlay dibekukan oleh mesin, di sini cukup
+   memastikan tidak ada transisi liar dari halaman yang mengganggu. */
+html.vf-shot .vf-overlay { transition: none !important; }
+
+/* ---------- sorotan media saat difokuskan dari sidebar ---------- */
+.vf-flash-target {
+  outline: 2px solid var(--vf-amber) !important;
+  outline-offset: 3px !important;
+  animation: vf-flash 1.4s ease-out 1;
+}
+@keyframes vf-flash {
+  0% { box-shadow: 0 0 0 0 #ffb02099; }
+  100% { box-shadow: 0 0 0 16px #ffb02000; }
+}
+
+/* ---------- host sidebar ---------- */
+.vf-sidebar-host {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  height: 100vh !important;
+  width: var(--vf-sidebar-w) !important;
+  min-width: 300px;
+  max-width: 520px;
+  border: 0 !important;
+  z-index: 2147483646 !important;
+  color-scheme: dark;
+  background: #0d0810;
+  box-shadow: -18px 0 60px #000000b0, -1px 0 0 #ffb02055;
+  transform: translateX(0);
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.vf-sidebar-host[data-state="closed"] { transform: translateX(102%); pointer-events: none; }
+
+html.vf-docked { width: calc(100% - var(--vf-sidebar-w)) !important; overflow-x: hidden !important; }
+html.vf-docked body { max-width: 100% !important; }
+html.vf-docked { scrollbar-color: #ffb020 #150e14; scrollbar-width: thin; }
+html.vf-docked::-webkit-scrollbar { width: 10px; height: 10px; }
+html.vf-docked::-webkit-scrollbar-track { background: #150e14; }
+html.vf-docked::-webkit-scrollbar-thumb { background: linear-gradient(#ffb020, #ff3d71); border-radius: 99px; border: 2px solid #150e14; }
+html.vf-docked::-webkit-scrollbar-thumb:hover { background: linear-gradient(#b4ff39, #ff6b3d); }
+
+@media (max-width: 760px) {
+  .vf-sidebar-host { width: 100vw !important; max-width: none; }
+  html.vf-docked { width: 100% !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vf-sidebar-host { transition: none; }
+  .vf-flash-target { animation: none; }
+}

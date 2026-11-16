@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "VeilFace — Face Censor VFX",
+  "version": "1.0.0",
+  "description": "Deteksi wajah di foto & video pada halaman mana pun, lalu sensor dengan 14 efek: bar, blur, mozaik, glitch, emoji, hologram, dan lainnya. Model berjalan offline di perangkat.",
+  "author": "aisac-id",
+  "homepage_url": "https://github.com/aisac-id/veilface",
+  "minimum_chrome_version": "116",
+  "permissions": ["storage", "scripting", "activeTab", "contextMenus", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "VeilFace — buka sidebar (Alt+Shift+F)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "toggle-sidebar": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Buka / tutup sidebar VeilFace"
+    },
+    "rescan": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Pindai ulang wajah di halaman"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["vendor/face-api.min.js", "src/effects.js", "src/engine.js", "src/content.js"],
+      "css": ["src/page.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["sidebar.html", "src/*", "fonts/*", "icons/*", "models/*", "vendor/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

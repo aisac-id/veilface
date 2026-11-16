@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arsip Nusa — demo VeilFace</title>
+<link rel="icon" href="../icons/icon32.png">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/sora.woff2") format("woff2"); font-weight: 300 800; font-display: swap; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../fonts/jetbrains.woff2") format("woff2"); font-weight: 100 800; font-display: swap; }
+  :root {
+    --paper: #f7efe4;
+    --paper-2: #fff9f0;
+    --ink: #241611;
+    --ink-dim: #6d564b;
+    --rust: #c2410c;
+    --amber: #b45309;
+    --plum: #7c2d5a;
+    --olive: #4d7c0f;
+    --line: #e2d2bf;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 15px/1.6 "Sora", system-ui, sans-serif;
+    background-image:
+      radial-gradient(circle at 12% -5%, #ffb02033, transparent 45%),
+      radial-gradient(circle at 92% 8%, #ff3d7122, transparent 42%),
+      radial-gradient(circle at 50% 110%, #4d7c0f18, transparent 50%);
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.35;
+    background-image: repeating-conic-gradient(#00000008 0% 25%, transparent 0% 50%);
+    background-size: 3px 3px;
+  }
+  header.nav {
+    position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 18px;
+    padding: 14px 26px; background: #f7efe4ee; backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.18em; font-size: 13px; }
+  .logo i { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, #ffb020, #c2410c 60%, #7c2d5a); display: block; }
+  nav.links { display: flex; gap: 16px; margin-left: auto; flex-wrap: wrap; }
+  nav.links a { color: var(--ink-dim); text-decoration: none; font-size: 12.5px; font-weight: 600; }
+  nav.links a:hover { color: var(--rust); }
+  .kbd {
+    font: 700 11px/1 "JetBrains Mono", monospace; padding: 7px 10px; border-radius: 8px;
+    background: #241611; color: #ffcf7a; border: 1px solid #4a2f22; white-space: nowrap;
+  }
+  main { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 34px 26px 70px; }
+  .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 26px; align-items: end; margin-bottom: 26px; }
+  h1 { font-size: clamp(30px, 4.6vw, 52px); line-height: 1.04; margin: 0 0 12px; letter-spacing: -0.02em; font-weight: 800; }
+  h1 em { font-style: normal; background: linear-gradient(96deg, #c2410c, #b45309 45%, #7c2d5a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { margin: 0; color: var(--ink-dim); max-width: 56ch; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat { background: var(--paper-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+  .stat b { display: block; font: 800 22px/1 "JetBrains Mono", monospace; color: var(--rust); }
+  .stat span { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 22px 0 16px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-2); }
+  .chip { border: 1px solid var(--line); background: #fff; color: var(--ink-dim); border-radius: 999px; padding: 7px 13px; font: 600 12px/1 "Sora", sans-serif; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: #241611; color: #ffcf7a; border-color: #241611; }
+  .chip:hover { border-color: var(--rust); color: var(--rust); }
+  .chip[aria-pressed="true"]:hover { color: #ffcf7a; }
+  .btn { border: 0; border-radius: 10px; padding: 9px 14px; font: 700 12px/1 "Sora", sans-serif; cursor: pointer; background: linear-gradient(120deg, #c2410c, #b45309); color: #fff6e8; }
+  .btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .btn:hover { filter: brightness(1.08); }
+  .spacer { flex: 1; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  figure.card { margin: 0; background: var(--paper-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 14px 34px #2416111a; }
+  figure.card > .frame { position: relative; background: #241611; }
+  figure.card img, figure.card video, figure.card canvas { display: block; width: 100%; height: auto; }
+  figure.card video { max-height: 300px; object-fit: cover; }
+  figure.card canvas { aspect-ratio: 3 / 2; }
+  figcaption { padding: 12px 14px 14px; }
+  figcaption b { display: block; font-size: 14px; }
+  figcaption span { font: 400 11px/1.5 "JetBrains Mono", monospace; color: var(--ink-dim); }
+  .badge { display: inline-block; margin-top: 8px; font: 700 10px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 7px; border-radius: 6px; background: #241611; color: #ffcf7a; }
+  .badge.cross { background: #7c2d5a; color: #ffe4f2; }
+  .badge.live { background: #4d7c0f; color: #f2ffdf; }
+  section.note { margin-top: 30px; padding: 18px; border-radius: 16px; border: 1px dashed var(--line); background: #fff9f0cc; color: var(--ink-dim); font-size: 13px; }
+  section.note b { color: var(--ink); }
+  h2.sec { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-dim); margin: 30px 0 10px; font-family: "JetBrains Mono", monospace; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    header.nav { flex-wrap: wrap; gap: 10px; padding: 12px 16px; }
+    main { padding: 22px 16px 60px; }
+    nav.links { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <span class="logo"><i></i>ARSIP NUSA</span>
+  <nav class="links">
+    <a href="#foto">Foto</a>
+    <a href="#video">Video</a>
+    <a href="#kanvas">Kanvas</a>
+    <a href="#catatan">Catatan</a>
+  </nav>
+  <span class="kbd">Alt+Shift+F → sidebar VeilFace</span>
+</header>
+
+<main>
+  <div class="hero">
+    <div>
+      <h1>Arsip foto redaksi yang <em>siap disensor</em> sebelum tayang.</h1>
+      <p class="lede">Halaman demo ini memuat foto tim, foto rapat, potret tunggal, klip video, kanvas yang bergerak, dan satu gambar lintas-origin. Buka sidebar VeilFace untuk menutup semua wajah secara lokal — tanpa mengunggah apa pun.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>6</b><span>media</span></div>
+      <div class="stat"><b>12+</b><span>wajah</span></div>
+      <div class="stat"><b>0</b><span>unggah</span></div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="chip" data-filter="all" aria-pressed="true" type="button">Semua</button>
+    <button class="chip" data-filter="foto" aria-pressed="false" type="button">Foto</button>
+    <button class="chip" data-filter="video" aria-pressed="false" type="button">Video</button>
+    <button class="chip" data-filter="kanvas" aria-pressed="false" type="button">Kanvas</button>
+    <span class="spacer"></span>
+    <button class="btn" id="addPhoto" type="button">Tambah foto dinamis</button>
+    <button class="btn ghost" id="swapSrc" type="button">Ganti sumber foto</button>
+    <button class="btn ghost" id="clearExtra" type="button">Hapus tambahan</button>
+  </div>
+
+  <h2 class="sec" id="foto">Foto liputan</h2>
+  <div class="grid" id="grid">
+    <figure class="card" data-kind="foto">
+      <div class="frame"><img src="assets/team.jpg" alt="Foto tim offsite" width="1264" height="848"></div>
+      <figcaption>
+        <b>Tim offsite — enam orang</b>
+        <span>assets/team.jpg · 1264×848</span>
+        <span class="badge">enam wajah sejajar</span>
+      </figcaption>
+    </figure>
+    <figure class="card" data-kind="foto">
+      <div class="frame"><img src="assets/meeting.jpg" alt="Foto rapat redaksi" width="1080" height="720"></div>
+      <figcaption>
+        <b>Rapat redaksi — sudut beragam</b>
+        <span>assets/meeting.jpg · 1080×720</span>
+        <span class="badge">wajah miring &amp; tertutup sebagian</span>
+      </figcaption>
+    </figure>
+    <figure class="card" data-kind="foto">
+      <div class="frame"><img id="portrait" src="assets/portrait.jpg" alt="Potret narasumber" width="720" height="720"></div>
+      <figcaption>
+        <b>Potret narasumber</b>
+        <span>assets/portrait.jpg · 720×720</span>
+        <span class="badge">satu wajah besar</span>
+      </figcaption>
+    </figure>
+    <figure class="card" data-kind="foto" id="crossCard">
+      <div class="frame"><img id="crossImg" alt="Potret lintas origin" width="720" height="720"></div>
+      <figcaption>
+        <b>Gambar lintas-origin</b>
+        <span id="crossLabel">memuat…</span>
+        <span class="badge cross">kanvas tainted → relay worker</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2 class="sec" id="video">Klip video</h2>
+  <div class="grid">
+    <figure class="card" data-kind="video">
+      <div class="frame">
+        <video id="clip" src="assets/clip.webm" muted loop playsinline autoplay poster="assets/team.jpg"></video>
+      </div>
+      <figcaption>
+        <b>Pan liputan — wajah bergerak</b>
+        <span>assets/clip.webm · dipindai tiap 220 ms</span>
+        <span class="badge live">pelacakan + penghalusan kotak</span>
+      </figcaption>
+    </figure>
+    <figure class="card" data-kind="kanvas" id="kanvas">
+      <div class="frame"><canvas id="liveCanvas" width="640" height="426"></canvas></div>
+      <figcaption>
+        <b>Kanvas siaran langsung</b>
+        <span>#liveCanvas · 640×426 · digambar ulang tiap frame</span>
+        <span class="badge live">aktifkan “Pindai kanvas” di tab Deteksi</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <section class="note" id="catatan">
+    <b>Cara pakai.</b> Muat ekstensi lewat <code>chrome://extensions</code> → Load unpacked, lalu tekan
+    <b>Alt+Shift+F</b> di halaman ini. Sidebar muncul selebar 1/4 layar dengan delapan tab vertikal.
+    Semua deteksi berjalan di perangkatmu memakai model yang dibundel bersama ekstensi; halaman ini tidak
+    mengirim permintaan jaringan apa pun selain memuat asetnya sendiri.
+  </section>
+</main>
+
+<script>
+  /* filter galeri */
+  const chips = Array.from(document.querySelectorAll('.chip[data-filter]'));
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+    const kind = chip.dataset.filter;
+    document.querySelectorAll('figure.card').forEach((card) => {
+      card.style.display = kind === 'all' || card.dataset.kind === kind ? '' : 'none';
+    });
+  }));
+
+  /* gambar lintas-origin: host yang sama, hostname berbeda (localhost vs 127.0.0.1) */
+  (function () {
+    const img = document.getElementById('crossImg');
+    const label = document.getElementById('crossLabel');
+    if (location.protocol === 'file:') {
+      img.src = 'assets/portrait.jpg';
+      label.textContent = 'mode berkas — lintas-origin dilewati';
+      return;
+    }
+    const alt = location.hostname === 'localhost' ? '127.0.0.1' : 'localhost';
+    const url = new URL('assets/portrait.jpg', location.href);
+    url.hostname = alt;
+    img.src = url.href;
+    label.textContent = alt + ' · origin berbeda';
+  })();
+
+  /* kanvas hidup: menggambar ulang foto dengan gerak lambat */
+  (function () {
+    const cv = document.getElementById('liveCanvas');
+    const ctx = cv.getContext('2d');
+    const img = new Image();
+    img.src = 'assets/team.jpg';
+    let t = 0;
+    function draw() {
+      t += 0.006;
+      ctx.fillStyle = '#241611';
+      ctx.fillRect(0, 0, cv.width, cv.height);
+      if (img.complete && img.naturalWidth) {
+        const zoom = 1.18 + Math.sin(t) * 0.08;
+        const w = cv.width * zoom, h = cv.height * zoom;
+        const dx = (cv.width - w) / 2 + Math.sin(t * 0.7) * 26;
+        const dy = (cv.height - h) / 2 + Math.cos(t * 0.5) * 12;
+        ctx.drawImage(img, dx, dy, w, h);
+      }
+      requestAnimationFrame(draw);
+    }
+    img.onload = draw;
+    if (img.complete) draw();
+  })();
+
+  /* konten dinamis untuk menguji MutationObserver */
+  let extra = 0;
+  document.getElementById('addPhoto').addEventListener('click', () => {
+    extra++;
+    const fig = document.createElement('figure');
+    fig.className = 'card extra';
+    fig.dataset.kind = 'foto';
+    fig.innerHTML = '<div class="frame"><img src="assets/meeting.jpg?n=' + extra + '" alt="Foto tambahan ' + extra + '"></div>' +
+      '<figcaption><b>Foto tambahan #' + extra + '</b><span>disisipkan setelah halaman siap</span>' +
+      '<span class="badge live">dinamis</span></figcaption>';
+    document.getElementById('grid').appendChild(fig);
+  });
+  document.getElementById('swapSrc').addEventListener('click', () => {
+    const img = document.getElementById('portrait');
+    const isPortrait = img.getAttribute('src').indexOf('portrait') >= 0;
+    img.src = isPortrait ? 'assets/meeting.jpg' : 'assets/portrait.jpg';
+  });
+  document.getElementById('clearExtra').addEventListener('click', () => {
+    document.querySelectorAll('figure.extra').forEach((n) => n.remove());
+    extra = 0;
+  });
+
+  /* pastikan video jalan walau autoplay dibatasi */
+  document.addEventListener('click', () => {
+    const v = document.getElementById('clip');
+    if (v && v.paused) v.play().catch(() => {});
+  }, { once: true });
+</script>
+</body>
+</html>
