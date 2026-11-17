@@ -1,3 +1,5 @@
+<p align="center"><img src="promo/logo-wordmark.png" alt="VeilFace — Local Face Censor" width="520"></p>
+
 # VeilFace
 
 **Sensor wajah otomatis di foto, video, dan kanvas pada halaman web mana pun — 100% lokal, dikendalikan dari sidebar 1/4 layar dengan tab tersusun ke bawah.**
