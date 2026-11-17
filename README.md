@@ -109,6 +109,40 @@ node --check src/engine.js
 
 Setelah mengubah berkas, klik **Reload** pada kartu ekstensi di `chrome://extensions`, lalu muat ulang halaman uji.
 
+## Merek & kit promosi
+
+<p align="center">
+  <img src="brand/logo-1600.png" alt="VeilFace" width="520">
+</p>
+
+<p align="center">
+  <img src="promo/box-veilface.png" alt="Kotak perangkat lunak VeilFace" width="720">
+</p>
+
+<p align="center">
+  <a href="promo/veil-suite-promo.mp4"><img src="promo/veil-suite-preview.gif" alt="Film promosi Veil Suite (28 detik)" width="720"></a><br>
+  <sub>Klik untuk memutar film penuh 1920×1080 · 28 s · 30 fps · H.264 + AAC</sub>
+</p>
+
+Semua aset siap pakai — logo, kotak perangkat lunak, poster, aset sosial, dan video — ada di repo ini:
+
+| Aset | Berkas |
+| --- | --- |
+| Galeri interaktif (buka di browser) | [`promo/index.html`](promo/index.html) |
+| Film promosi 28 detik | [`promo/veil-suite-promo.mp4`](promo/veil-suite-promo.mp4) |
+| Pratinjau GIF ringan | [`promo/veil-suite-preview.gif`](promo/veil-suite-preview.gif) |
+| Kotak perangkat lunak | [`promo/box-veilface.png`](promo/box-veilface.png) · [`promo/box-veil-suite.png`](promo/box-veil-suite.png) |
+| Poster A4 | [`promo/poster-veilface.png`](promo/poster-veilface.png) · [`promo/poster-veil-suite.png`](promo/poster-veil-suite.png) |
+| Hero 16:9 | [`promo/hero-1920x1080.png`](promo/hero-1920x1080.png) |
+| Sebelum → sesudah | [`promo/compare-1600x900.png`](promo/compare-1600x900.png) |
+| Sosial (persegi, story, OG, spanduk) | [`promo/`](promo/) |
+| Logo SVG + PNG (7 SVG, 5 PNG) | [`brand/`](brand/) |
+| Daftar aset & aturan merek | [`promo/README.md`](promo/README.md) |
+
+Galeri `promo/index.html` memutar film dengan suara, menampilkan 27 aset dengan pencarian dan
+lightbox, dan menyediakan panel studio: sembilan penggeser gaya langsung, pemilih tema, sakelar
+panduan, acak/reset, serta ekspor bingkai PNG 1920×1080. Semua aset berlisensi MIT seperti kodenya.
+
 ## Lisensi & atribusi
 
 Kode VeilFace dirilis di bawah [lisensi MIT](LICENSE).
@@ -119,3 +153,5 @@ Kode VeilFace dirilis di bawah [lisensi MIT](LICENSE).
 - Aset foto dan video pada `demo/` dibuat khusus untuk proyek ini dan bukan wajah orang nyata.
 
 Dibuat oleh [aisac-id](https://github.com/aisac-id).
+
+Aset merek dan promosi di `brand/` dan `promo/` juga berlisensi MIT. Lihat [`promo/README.md`](promo/README.md) untuk daftar aset, palet, dan aturan pemakaian.

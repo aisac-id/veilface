@@ -1,0 +1,1349 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VeilFace · Kit Promosi & Merek</title>
+<meta name="description" content="Logo, kotak perangkat lunak, poster, aset sosial, dan video promosi VeilFace. Semua aset sumber terbuka di bawah lisensi MIT.">
+<meta property="og:title" content="VeilFace · Kit Promosi & Merek">
+<meta property="og:description" content="Sensor setiap wajah sebelum tayang — deteksi lokal, 14 gaya sensor, sidebar 1/4 layar.">
+<meta property="og:image" content="og-1200x630.png">
+<link rel="icon" href="../icons/icon128.png">
+<style>
+@font-face{font-family:'Sora';src:url('../fonts/sora.woff2') format('woff2');font-weight:300 800;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('../fonts/jetbrains.woff2') format('woff2');font-weight:400 700;font-display:swap}
+:root{
+  --a:#FFB020;--b:#FF6B3D;--c:#FF3D71;--accent:#B4FF39;--spark:#B4FF39;
+  --ink:#0D0810;--ink2:#241722;--surface:#1A1018;--dim:#C9A99A;--text:#FDF1E4;
+  --alt-a:#00E5C7;--alt-b:#3DA5FF;--alt-c:#7C5CFF;
+  --grad:linear-gradient(112deg,var(--a),var(--b) 52%,var(--c));
+  --grad-suite:linear-gradient(112deg,#00E5C7,#7C5CFF 48%,#FF6B3D);
+  --line:color-mix(in srgb,var(--a) 22%,transparent);
+  --dock:344px;--head:66px;
+  --ok:#B4FF39;--warn:#FFB020;--danger:#FF3D71;--info:#3DA5FF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--text);
+  font-family:'Sora',system-ui,sans-serif;font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body[data-theme="suite"]{--a:#00E5C7;--b:#7C5CFF;--c:#FF6B3D;--grad:var(--grad-suite)}
+body[data-theme="alt"]{--a:var(--alt-a);--b:var(--alt-b);--c:var(--alt-c);
+  --grad:linear-gradient(112deg,var(--alt-a),var(--alt-b) 52%,var(--alt-c))}
+body[data-theme="mono"]{--a:#C9D4EA;--b:#8E9BB8;--c:#E6ECF8;--grad:linear-gradient(112deg,#C9D4EA,#8E9BB8 52%,#E6ECF8)}
+
+/* ---------- latar berlapis ---------- */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg .aurora{position:absolute;inset:-25%;
+  background:
+    radial-gradient(46% 40% at 18% 12%,color-mix(in srgb,var(--a) 34%,transparent),transparent 70%),
+    radial-gradient(40% 44% at 82% 22%,color-mix(in srgb,var(--c) 32%,transparent),transparent 72%),
+    radial-gradient(52% 46% at 62% 88%,color-mix(in srgb,var(--b) 26%,transparent),transparent 74%);
+  filter:blur(30px);opacity:.5;animation:drift 34s ease-in-out infinite alternate}
+.bg .mesh{position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(color-mix(in srgb,var(--a) 8%,transparent) 1px,transparent 1px),
+                   linear-gradient(90deg,color-mix(in srgb,var(--a) 8%,transparent) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(72% 62% at 50% 34%,#000,transparent 82%)}
+.bg .grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+@keyframes drift{0%{transform:translate3d(-3%,-2%,0) scale(1.04)}100%{transform:translate3d(4%,3%,0) scale(1.12)}}
+
+/* ---------- scrollbar bertema ---------- */
+*{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--a) 55%,transparent) color-mix(in srgb,var(--ink2) 80%,transparent)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:color-mix(in srgb,var(--ink2) 82%,transparent);border-radius:9px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--a),var(--c));border-radius:9px;
+  border:2px solid color-mix(in srgb,var(--ink2) 82%,transparent)}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--spark),var(--a))}
+::-webkit-scrollbar-corner{background:transparent}
+
+/* ---------- header tetap ---------- */
+header{position:fixed;top:0;left:0;right:0;height:var(--head);z-index:60;
+  display:flex;align-items:center;gap:18px;padding:0 20px;
+  background:color-mix(in srgb,var(--ink) 82%,transparent);backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--line)}
+header .mark{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;flex:none}
+header .mark img{height:30px;display:block}
+header nav{display:flex;gap:4px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+header nav::-webkit-scrollbar{display:none}
+header nav a{position:relative;flex:none;padding:8px 12px;border-radius:9px;text-decoration:none;
+  color:var(--dim);font-size:13px;font-weight:600;letter-spacing:.02em;transition:.18s}
+header nav a:hover{color:var(--text);background:color-mix(in srgb,var(--a) 12%,transparent)}
+header nav a.on{color:var(--ink);background:var(--grad)}
+header .sp{flex:1}
+.hbtn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:10px;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);
+  color:var(--text);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:.18s;flex:none}
+.hbtn:hover{border-color:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 14%,transparent)}
+.hbtn.live{border-color:color-mix(in srgb,var(--spark) 55%,transparent);color:var(--spark)}
+.hbtn svg{width:17px;height:17px;flex:none}
+.hbtn .lbl{white-space:nowrap}
+
+/* ---------- tata letak ---------- */
+.wrap{position:relative;z-index:1;padding:calc(var(--head) + 26px) calc(var(--dock) + 40px) 90px 40px;max-width:1900px}
+section{scroll-margin-top:calc(var(--head) + 18px)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--spark);margin:0 0 10px}
+h1{font-size:clamp(34px,4.4vw,62px);line-height:1.02;font-weight:800;letter-spacing:-.025em;margin:0 0 14px}
+h1 .g{background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:clamp(22px,2.4vw,32px);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.lede{color:var(--dim);max-width:70ch;margin:0 0 22px;font-size:16px}
+.sec-head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:52px 0 18px;
+  padding-bottom:12px;border-bottom:1px solid var(--line)}
+.sec-head .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);letter-spacing:.2em}
+
+/* ---------- panggung video ---------- */
+.stage{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);
+  background:#04040A;box-shadow:0 34px 90px -40px color-mix(in srgb,var(--c) 60%,transparent),0 0 0 1px #ffffff08 inset}
+.stage .holder{position:relative;aspect-ratio:16/9;overflow:hidden;background:#04040A}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;
+  transform:scale(var(--zoom,1));transform-origin:50% 50%;
+  filter:saturate(var(--sat,1)) hue-rotate(var(--hue,0deg)) contrast(var(--con,1)) brightness(var(--bri,1))}
+.stage .lay{position:absolute;inset:0;pointer-events:none}
+.stage .bloom{mix-blend-mode:screen;opacity:var(--bloom,0);
+  background:radial-gradient(60% 60% at 50% 45%,color-mix(in srgb,var(--a) 40%,transparent),transparent 72%)}
+.stage .scan{opacity:var(--scan,0);
+  background:repeating-linear-gradient(180deg,#0000 0 2px,#00000055 2px 4px)}
+.stage .noise{opacity:var(--grain,0);mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+.stage .guides{opacity:0;transition:.2s;
+  background-image:linear-gradient(90deg,#ffffff22 1px,transparent 1px),linear-gradient(#ffffff22 1px,transparent 1px);
+  background-size:33.333% 33.333%}
+.stage.guides-on .guides{opacity:1}
+.stage .safe{position:absolute;inset:5%;border:1px dashed color-mix(in srgb,var(--spark) 60%,transparent);
+  border-radius:6px;opacity:0;transition:.2s;pointer-events:none}
+.stage.guides-on .safe{opacity:.8}
+.stage .badge{position:absolute;left:14px;top:14px;display:flex;gap:8px;align-items:center;
+  padding:6px 11px;border-radius:999px;background:#04040Acc;border:1px solid var(--line);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--spark);backdrop-filter:blur(6px)}
+.stage .badge b{color:var(--text);font-weight:600}
+.stage .tap{position:absolute;inset:0;display:none;place-items:center;background:#04040Ad9;backdrop-filter:blur(3px);
+  border:0;cursor:pointer;color:var(--text);font:inherit;z-index:3}
+.stage .tap.show{display:grid}
+.stage .tap span{display:flex;flex-direction:column;align-items:center;gap:12px;font-weight:700;font-size:18px}
+.stage .tap i{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:var(--grad);
+  box-shadow:0 0 0 10px color-mix(in srgb,var(--a) 16%,transparent)}
+.stage .tap i svg{width:28px;height:28px;color:var(--ink)}
+.stage .tap small{color:var(--dim);font-weight:500;font-size:13px}
+.bar{display:flex;align-items:center;gap:12px;padding:12px 14px;background:color-mix(in srgb,var(--surface) 92%,transparent);
+  border-top:1px solid var(--line);flex-wrap:wrap}
+.bar .time{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);min-width:104px}
+.bar input[type=range]{flex:1;min-width:140px}
+.iconbtn{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:10px;cursor:pointer;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--ink2) 90%,transparent);color:var(--text);transition:.18s}
+.iconbtn:hover{border-color:var(--a);color:var(--a)}
+.iconbtn svg{width:17px;height:17px}
+.chapters{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chapters button{padding:7px 12px;border-radius:999px;border:1px solid var(--line);cursor:pointer;
+  background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--dim);
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;transition:.18s}
+.chapters button:hover{color:var(--text);border-color:var(--a)}
+.chapters button.on{background:var(--grad);color:var(--ink);border-color:transparent;font-weight:700}
+
+/* ---------- dock kontrol permanen ---------- */
+.dock{position:fixed;top:calc(var(--head) + 16px);right:16px;width:var(--dock);z-index:55;
+  max-height:calc(100vh - var(--head) - 32px);display:flex;flex-direction:column;
+  border-radius:18px;border:1px solid var(--line);overflow:hidden;
+  background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(18px) saturate(150%);
+  box-shadow:0 28px 70px -34px #000,0 0 0 1px #ffffff08 inset}
+.dock .top{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--a) 12%,transparent),transparent)}
+.dock .top h2{font-size:14px;margin:0;letter-spacing:.01em}
+.dock .top .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.2em;color:var(--spark)}
+.dock .mirror{position:relative;aspect-ratio:16/9;background:#04040A;border-bottom:1px solid var(--line)}
+.dock .mirror canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dock .mirror .tag{position:absolute;left:8px;bottom:8px;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.16em;color:var(--spark);background:#04040Abf;padding:3px 7px;border-radius:6px}
+.dock .body{overflow-y:auto;padding:14px 15px 16px;display:flex;flex-direction:column;gap:13px}
+.ctl{display:flex;flex-direction:column;gap:6px}
+.ctl .lab{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  font-size:12.5px;font-weight:600;color:var(--text)}
+.ctl .lab b{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;color:var(--a)}
+.ctl select{height:34px;border-radius:9px;border:1px solid var(--line);padding:0 9px;
+  background:var(--ink2);color:var(--text);font:inherit;font-size:13px;cursor:pointer}
+input[type=range]{-webkit-appearance:none;appearance:none;height:22px;background:transparent;cursor:pointer;width:100%;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:6px;
+  background:linear-gradient(90deg,var(--a),var(--c)) no-repeat,
+             color-mix(in srgb,var(--ink2) 90%,transparent);
+  background-size:var(--fill,50%) 100%,100% 100%;border:1px solid var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;
+  margin-top:-6px;background:var(--text);border:3px solid var(--a);box-shadow:0 0 0 4px color-mix(in srgb,var(--a) 16%,transparent);transition:.15s}
+input[type=range]:hover::-webkit-slider-thumb{border-color:var(--spark);box-shadow:0 0 0 6px color-mix(in srgb,var(--spark) 18%,transparent)}
+input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:color-mix(in srgb,var(--ink2) 90%,transparent);border:1px solid var(--line)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--a),var(--c))}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--text);border:3px solid var(--a)}
+.toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sw{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);
+  background:color-mix(in srgb,var(--ink2) 78%,transparent);cursor:pointer;font-size:12.5px;font-weight:600;transition:.18s}
+.sw:hover{border-color:var(--a)}
+.sw i{width:30px;height:17px;border-radius:999px;background:color-mix(in srgb,var(--dim) 40%,transparent);
+  position:relative;flex:none;transition:.2s}
+.sw i::after{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:var(--text);transition:.2s}
+.sw.on{color:var(--spark);border-color:color-mix(in srgb,var(--spark) 45%,transparent)}
+.sw.on i{background:linear-gradient(90deg,var(--a),var(--spark))}
+.sw.on i::after{left:15px;background:var(--ink)}
+.dock .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+.btn{height:38px;border-radius:10px;border:1px solid var(--line);cursor:pointer;font:inherit;font-size:13px;font-weight:700;
+  background:color-mix(in srgb,var(--ink2) 88%,transparent);color:var(--text);transition:.18s;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}
+.btn:hover{border-color:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 12%,transparent)}
+.btn.pri{background:var(--grad);color:var(--ink);border-color:transparent}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.wide{grid-column:1/-1}
+.btn svg{width:15px;height:15px}
+.hint{font-size:11.5px;color:var(--dim);line-height:1.5;margin:2px 0 0}
+.dock hr{border:0;border-top:1px solid var(--line);margin:2px 0}
+.grp{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+
+/* ---------- galeri ---------- */
+.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+.search{position:relative;flex:1;min-width:220px}
+.search input{width:100%;height:40px;border-radius:11px;border:1px solid var(--line);padding:0 12px 0 38px;
+  background:color-mix(in srgb,var(--surface) 90%,transparent);color:var(--text);font:inherit;font-size:14px}
+.search input:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 14%,transparent)}
+.search svg{position:absolute;left:12px;top:11px;width:17px;height:17px;color:var(--dim)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chips button{padding:8px 13px;border-radius:999px;border:1px solid var(--line);cursor:pointer;transition:.18s;
+  background:color-mix(in srgb,var(--surface) 84%,transparent);color:var(--dim);font:inherit;font-size:12.5px;font-weight:600}
+.chips button:hover{color:var(--text);border-color:var(--a)}
+.chips button.on{background:var(--grad);color:var(--ink);border-color:transparent}
+.chips button span{font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.75;margin-left:5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{border-radius:16px;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;
+  background:color-mix(in srgb,var(--surface) 88%,transparent);transition:.22s;
+  opacity:0;transform:translateY(18px)}
+.card.in{opacity:1;transform:none}
+.card:hover{border-color:color-mix(in srgb,var(--a) 55%,transparent);transform:translateY(-3px);
+  box-shadow:0 24px 50px -30px color-mix(in srgb,var(--c) 70%,transparent)}
+.card.hide{display:none}
+.thumb{position:relative;display:block;width:100%;aspect-ratio:16/10;border:0;padding:0;cursor:zoom-in;
+  background:#F3F0EA;overflow:hidden}
+.card.on-dark .thumb{background:
+  radial-gradient(70% 70% at 30% 20%,color-mix(in srgb,var(--b) 22%,transparent),transparent 70%),var(--ink)}
+.thumb img,.thumb video{width:100%;height:100%;object-fit:contain;display:block;transition:.3s}
+.thumb:hover img,.thumb:hover video{transform:scale(1.03)}
+.thumb .zoom{position:absolute;right:10px;bottom:10px;padding:5px 10px;border-radius:999px;
+  background:#04040Acc;color:#fff;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+  opacity:0;transform:translateY(6px);transition:.2s;border:1px solid #ffffff22}
+.thumb:hover .zoom{opacity:1;transform:none}
+.meta{padding:14px 15px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+.meta h3{margin:0;font-size:15.5px;font-weight:700;letter-spacing:-.01em}
+.meta .dim{margin:0;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--a);letter-spacing:.06em}
+.meta .note{margin:0;font-size:13px;color:var(--dim);flex:1}
+.meta .row{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-top:6px;flex-wrap:wrap}
+.meta code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);
+  background:color-mix(in srgb,var(--ink2) 90%,transparent);padding:4px 7px;border-radius:6px;
+  border:1px solid var(--line);word-break:break-all}
+.acts{display:flex;gap:6px;flex:none}
+.mini{height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--line);cursor:pointer;
+  background:transparent;color:var(--text);font:inherit;font-size:12px;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;transition:.18s}
+.mini:hover{border-color:var(--a);color:var(--a)}
+.mini.solid{background:var(--grad);color:var(--ink);border-color:transparent}
+.mini.solid:hover{color:var(--ink);filter:brightness(1.08)}
+.empty{padding:40px;text-align:center;color:var(--dim);border:1px dashed var(--line);border-radius:16px;display:none}
+.empty.show{display:block}
+
+/* ---------- panduan merek ---------- */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.panel{border-radius:16px;border:1px solid var(--line);padding:18px;
+  background:color-mix(in srgb,var(--surface) 86%,transparent)}
+.panel h3{margin:0 0 10px;font-size:16px}
+.panel ul{margin:0;padding-left:18px;color:var(--dim);font-size:13.5px}
+.panel li{margin:5px 0}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:10px;margin-top:4px}
+.swatch{border-radius:12px;border:1px solid var(--line);overflow:hidden;background:var(--ink2)}
+.swatch i{display:block;height:56px}
+.swatch div{padding:7px 9px}
+.swatch b{display:block;font-size:12px}
+.swatch code{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--dim)}
+.swatch button{width:100%;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;padding:0}
+.swatch:hover{border-color:var(--a)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
+.rule{border-radius:14px;border:1px solid var(--line);padding:14px;background:color-mix(in srgb,var(--ink2) 70%,transparent)}
+.rule b{display:block;font-size:13px;margin-bottom:6px}
+.rule.good b{color:var(--ok)}
+.rule.bad b{color:var(--danger)}
+.rule p{margin:0;font-size:12.5px;color:var(--dim)}
+.logo-demo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.logo-demo div{border-radius:14px;display:grid;place-items:center;padding:22px;border:1px solid var(--line)}
+.logo-demo .dark{background:var(--ink)}
+.logo-demo .light{background:#F6F3EE}
+.logo-demo img{max-width:100%;height:auto;max-height:64px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap;color:var(--dim);font-size:13px}
+footer a{color:var(--a);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* ---------- lightbox ---------- */
+.lb{position:fixed;inset:0;z-index:90;display:none;background:#03030Ae8;backdrop-filter:blur(10px)}
+.lb.show{display:grid;grid-template-rows:auto 1fr auto}
+.lb .top{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.lb .top h3{margin:0;font-size:15px}
+.lb .top .d{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--a)}
+.lb .view{display:grid;place-items:center;padding:18px;overflow:auto}
+.lb .view img,.lb .view video{max-width:100%;max-height:100%;border-radius:12px;border:1px solid var(--line);background:#04040A}
+.lb .view.light{background:#F3F0EA;border-radius:0}
+.lb .bot{display:flex;gap:10px;align-items:center;justify-content:center;padding:14px 18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;border:1px solid var(--line);background:#04040Acc;color:var(--text);cursor:pointer}
+.lb .nav.prev{left:14px}.lb .nav.next{right:14px}
+.lb .nav:hover{border-color:var(--a);color:var(--a)}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);z-index:120;
+  padding:11px 18px;border-radius:12px;background:var(--grad);color:var(--ink);font-weight:700;font-size:13.5px;
+  opacity:0;pointer-events:none;transition:.24s;box-shadow:0 18px 40px -18px #000}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- responsif ---------- */
+@media (max-width:1180px){
+  :root{--dock:300px}
+  .wrap{padding-left:26px;padding-right:calc(var(--dock) + 28px)}
+}
+@media (max-width:900px){
+  .wrap{padding:calc(var(--head) + 18px) 16px calc(40vh + 26px)}
+  .dock{top:auto;bottom:0;left:0;right:0;width:auto;border-radius:16px 16px 0 0;max-height:40vh;
+    border-left:0;border-right:0;border-bottom:0}
+  .dock .mirror{display:none}
+  .dock .top{padding:10px 14px}
+  .dock .body{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;align-items:start;padding:12px 14px 14px}
+  .dock .body .grp,.dock .body hr,.dock .body .acts,.dock .body .hint,.dock .body .toggles{grid-column:1/-1}
+  .dock .acts{grid-template-columns:1fr 1fr 1fr}
+  .dock .acts .btn.wide{grid-column:auto}
+  header{gap:9px;padding:8px 12px;height:auto;flex-wrap:wrap}
+  header .mark img{height:26px}
+  header nav{order:3;width:100%;margin:0;padding-bottom:2px}
+  header nav a{padding:7px 11px;font-size:12.5px}
+  header .sp{display:none}
+  header .hbtn{margin-left:auto}
+  header .hbtn + .hbtn{margin-left:0}
+  header a.hbtn .lbl{display:none}
+  header a.hbtn{padding:0 11px}
+  .hbtn{height:34px;font-size:12.5px;padding:0 11px}
+  h1{font-size:clamp(28px,7.4vw,40px)}
+  .lede{font-size:14.5px}
+  #studio{display:flex;flex-direction:column}
+  #studio .eyebrow{order:1}
+  #studio h1{order:2;margin-bottom:16px}
+  #studio .stage{order:3}
+  #studio .chapters{order:4}
+  #studio .lede{order:5;margin:18px 0 0}
+  .logo-demo{grid-template-columns:1fr}
+  .lb .nav{display:none}
+  .ctl .lab{font-size:12px}
+  .sw{font-size:12px;padding:7px 9px}
+}
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .bar .time{min-width:84px;font-size:11px}
+  .bar{gap:8px;padding:10px}
+  .btn{font-size:12.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bg .aurora{animation:none}
+  .card{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body data-theme="brand">
+<div class="bg"><div class="aurora"></div><div class="mesh"></div><div class="grain"></div></div>
+
+<header>
+  <a class="mark" href="#top"><img src="../brand/logo-1600.png" alt="VeilFace"></a>
+  <nav id="nav">
+    <a href="#studio">Studio</a>
+    <a href="#aset">Aset</a>
+    <a href="#merek">Merek</a>
+    <a href="#pakai">Cara pakai</a>
+    <a href="#lisensi">Lisensi</a>
+  </nav>
+  <span class="sp"></span>
+  <button class="hbtn live" id="sound" type="button" aria-pressed="true" title="Suara video (M)">
+    <svg id="sndOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    <svg id="sndOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>
+    <span class="lbl" id="sndLbl">Suara: aktif</span>
+  </button>
+  <a class="hbtn" href="https://github.com/aisac-id/veilface" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+    <span class="lbl">Repo</span>
+  </a>
+</header>
+
+<div class="wrap" id="top">
+  <section id="studio">
+    <p class="eyebrow">Kit promosi · sumber terbuka</p>
+    <h1>Setiap aset untuk<br><span class="g">menceritakan VeilFace.</span></h1>
+    <p class="lede">Sensor setiap wajah sebelum tayang — deteksi lokal, 14 gaya sensor, sidebar 1/4 layar. Semua logo, kotak perangkat lunak, poster, aset sosial, dan film di halaman ini dibuat dari tangkapan layar ekstensi yang benar-benar berjalan — bukan mockup. Unduh, ubah, pakai.</p>
+
+    <div class="stage" id="stage">
+      <div class="holder">
+        <video id="film" src="veil-suite-promo.mp4" poster="video-poster.jpg" playsinline loop preload="auto"></video>
+        <div class="lay bloom"></div>
+        <div class="lay scan"></div>
+        <div class="lay noise"></div>
+        <div class="lay guides"></div>
+        <div class="safe"></div>
+        <div class="badge">1920×1080 · 30 FPS · <b id="chapName">Pembuka</b></div>
+        <button class="tap" id="tap" type="button">
+          <span><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i>
+          Putar film dengan suara<small>28 detik · musik &amp; efek asli</small></span>
+        </button>
+      </div>
+      <div class="bar">
+        <button class="iconbtn" id="play" type="button" aria-label="Putar atau jeda">
+          <svg id="icPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="icPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+        </button>
+        <input type="range" id="seek" min="0" max="28" step="0.05" value="0" aria-label="Posisi waktu">
+        <span class="time" id="time">00:00 / 00:28</span>
+        <a class="btn" style="height:38px;padding:0 14px" href="veil-suite-promo.mp4" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg>
+          MP4
+        </a>
+      </div>
+    </div>
+    <div class="chapters" id="chapters"></div>
+  </section>
+
+  <section id="aset">
+    <div class="sec-head">
+      <div><h2>Pustaka aset</h2><p class="lede" style="margin:4px 0 0">Klik untuk memperbesar, salin Markdown, atau unduh berkas aslinya.</p></div>
+      <span class="sp" style="flex:1"></span>
+      <span class="n" id="count">27 BERKAS</span>
+    </div>
+    <div class="tools">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Cari aset… (mis. poster, og, mono)" aria-label="Cari aset">
+      </label>
+      <div class="chips" id="filters">
+        <button type="button" data-f="all" class="on">Semua<span>27</span></button><button type="button" data-f="video" class="">Video<span>3</span></button><button type="button" data-f="logo" class="">Logo<span>12</span></button><button type="button" data-f="box" class="">Kemasan<span>2</span></button><button type="button" data-f="poster" class="">Poster & Hero<span>5</span></button><button type="button" data-f="social" class="">Sosial<span>5</span></button>
+      </div>
+    </div>
+    <div class="grid" id="grid">
+<article class="card on-dark" data-g="video" data-i="0" data-name="video promosi veil suite promo/veil-suite-promo.mp4">
+      <button class="thumb" type="button" data-open="0" aria-label="Perbesar Video promosi Veil Suite"><video src="veil-suite-promo.mp4" poster="video-poster.jpg" muted loop playsinline preload="metadata"></video><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Video promosi Veil Suite</h3>
+        <p class="dim">1920×1080 · 28 s · 30 fps · H.264 + AAC</p>
+        <p class="note">Film pendek dua produk: pemindaian data, katalog 14 efek dengan pratinjau hidup, sensor wajah, lalu kartu pemasangan.</p>
+        <div class="row">
+          <code>promo/veil-suite-promo.mp4</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/veil-suite-promo.mp4" data-alt="Video promosi Veil Suite">Salin MD</button>
+            <a class="mini solid" href="veil-suite-promo.mp4" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="video" data-i="1" data-name="pratinjau animasi (gif) promo/veil-suite-preview.gif">
+      <button class="thumb" type="button" data-open="1" aria-label="Perbesar Pratinjau animasi (GIF)"><img src="veil-suite-preview.gif" alt="Pratinjau animasi (GIF)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Pratinjau animasi (GIF)</h3>
+        <p class="dim">560×315 · 10 fps · 7,0 MB</p>
+        <p class="note">Versi ringan untuk README, surel, dan tempat yang tidak memutar MP4.</p>
+        <div class="row">
+          <code>promo/veil-suite-preview.gif</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/veil-suite-preview.gif" data-alt="Pratinjau animasi (GIF)">Salin MD</button>
+            <a class="mini solid" href="veil-suite-preview.gif" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="video" data-i="2" data-name="poster frame video promo/video-poster.jpg">
+      <button class="thumb" type="button" data-open="2" aria-label="Perbesar Poster frame video"><img src="video-poster.jpg" alt="Poster frame video" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Poster frame video</h3>
+        <p class="dim">1920×1080 · JPEG</p>
+        <p class="note">Kartu penutup film; dipakai sebagai poster pemutar dan thumbnail tautan.</p>
+        <div class="row">
+          <code>promo/video-poster.jpg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/video-poster.jpg" data-alt="Poster frame video">Salin MD</button>
+            <a class="mini solid" href="video-poster.jpg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="3" data-name="logo utama (vektor) brand/logo.svg">
+      <button class="thumb" type="button" data-open="3" aria-label="Perbesar Logo utama (vektor)"><img src="../brand/logo.svg" alt="Logo utama (vektor)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logo utama (vektor)</h3>
+        <p class="dim">SVG · font tersemat</p>
+        <p class="note">Lockup horizontal di atas latar gelap. Skala bebas tanpa kehilangan mutu.</p>
+        <div class="row">
+          <code>brand/logo.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo.svg" data-alt="Logo utama (vektor)">Salin MD</button>
+            <a class="mini solid" href="../brand/logo.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="4" data-name="logo utama (png) brand/logo-1600.png">
+      <button class="thumb" type="button" data-open="4" aria-label="Perbesar Logo utama (PNG)"><img src="../brand/logo-1600.png" alt="Logo utama (PNG)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logo utama (PNG)</h3>
+        <p class="dim">1600×356 · transparan</p>
+        <p class="note">Untuk header, slide, dan dokumen yang tidak mendukung SVG.</p>
+        <div class="row">
+          <code>brand/logo-1600.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-1600.png" data-alt="Logo utama (PNG)">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-1600.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card" data-g="logo" data-i="5" data-name="logo di latar terang brand/logo-1600-light.png">
+      <button class="thumb" type="button" data-open="5" aria-label="Perbesar Logo di latar terang"><img src="../brand/logo-1600-light.png" alt="Logo di latar terang" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logo di latar terang</h3>
+        <p class="dim">1600×356</p>
+        <p class="note">Versi kontras untuk kertas, presentasi terang, dan cetak.</p>
+        <div class="row">
+          <code>brand/logo-1600-light.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-1600-light.png" data-alt="Logo di latar terang">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-1600-light.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="6" data-name="logo bertumpuk (vektor) brand/logo-stacked.svg">
+      <button class="thumb" type="button" data-open="6" aria-label="Perbesar Logo bertumpuk (vektor)"><img src="../brand/logo-stacked.svg" alt="Logo bertumpuk (vektor)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logo bertumpuk (vektor)</h3>
+        <p class="dim">SVG · font tersemat</p>
+        <p class="note">Logomark di atas wordmark; cocok untuk ruang persegi dan sampul.</p>
+        <div class="row">
+          <code>brand/logo-stacked.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-stacked.svg" data-alt="Logo bertumpuk (vektor)">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-stacked.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="7" data-name="logo bertumpuk (png) brand/logo-stacked-900.png">
+      <button class="thumb" type="button" data-open="7" aria-label="Perbesar Logo bertumpuk (PNG)"><img src="../brand/logo-stacked-900.png" alt="Logo bertumpuk (PNG)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logo bertumpuk (PNG)</h3>
+        <p class="dim">900×643 · transparan</p>
+        <p class="note">Versi raster dari lockup bertumpuk.</p>
+        <div class="row">
+          <code>brand/logo-stacked-900.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-stacked-900.png" data-alt="Logo bertumpuk (PNG)">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-stacked-900.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="8" data-name="logomark (vektor) brand/logomark.svg">
+      <button class="thumb" type="button" data-open="8" aria-label="Perbesar Logomark (vektor)"><img src="../brand/logomark.svg" alt="Logomark (vektor)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logomark (vektor)</h3>
+        <p class="dim">SVG</p>
+        <p class="note">Ikon tanpa teks untuk avatar, favicon, dan watermark.</p>
+        <div class="row">
+          <code>brand/logomark.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logomark.svg" data-alt="Logomark (vektor)">Salin MD</button>
+            <a class="mini solid" href="../brand/logomark.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="9" data-name="logomark 1024 brand/logomark-1024.png">
+      <button class="thumb" type="button" data-open="9" aria-label="Perbesar Logomark 1024"><img src="../brand/logomark-1024.png" alt="Logomark 1024" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logomark 1024</h3>
+        <p class="dim">1024×1024 · transparan</p>
+        <p class="note">Ukuran besar untuk toko ekstensi dan ikon aplikasi.</p>
+        <div class="row">
+          <code>brand/logomark-1024.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logomark-1024.png" data-alt="Logomark 1024">Salin MD</button>
+            <a class="mini solid" href="../brand/logomark-1024.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card" data-g="logo" data-i="10" data-name="mono untuk latar terang brand/logo-mono-light.svg">
+      <button class="thumb" type="button" data-open="10" aria-label="Perbesar Mono untuk latar terang"><img src="../brand/logo-mono-light.svg" alt="Mono untuk latar terang" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Mono untuk latar terang</h3>
+        <p class="dim">SVG · satu warna</p>
+        <p class="note">Versi tinta gelap untuk cetak satu warna, faks, atau emboss.</p>
+        <div class="row">
+          <code>brand/logo-mono-light.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-mono-light.svg" data-alt="Mono untuk latar terang">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-mono-light.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="11" data-name="mono untuk latar gelap brand/logo-mono-dark.svg">
+      <button class="thumb" type="button" data-open="11" aria-label="Perbesar Mono untuk latar gelap"><img src="../brand/logo-mono-dark.svg" alt="Mono untuk latar gelap" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Mono untuk latar gelap</h3>
+        <p class="dim">SVG · satu warna</p>
+        <p class="note">Versi putih untuk latar gelap, sponsor bar, dan footer.</p>
+        <div class="row">
+          <code>brand/logo-mono-dark.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-mono-dark.svg" data-alt="Mono untuk latar gelap">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-mono-dark.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="12" data-name="mono putih (png) brand/logo-mono-white.png">
+      <button class="thumb" type="button" data-open="12" aria-label="Perbesar Mono putih (PNG)"><img src="../brand/logo-mono-white.png" alt="Mono putih (PNG)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Mono putih (PNG)</h3>
+        <p class="dim">1200×267 · transparan</p>
+        <p class="note">Bitmap putih siap tempel di atas foto atau gradien.</p>
+        <div class="row">
+          <code>brand/logo-mono-white.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logo-mono-white.png" data-alt="Mono putih (PNG)">Salin MD</button>
+            <a class="mini solid" href="../brand/logo-mono-white.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card" data-g="logo" data-i="13" data-name="logomark mono terang brand/logomark-mono-light.svg">
+      <button class="thumb" type="button" data-open="13" aria-label="Perbesar Logomark mono terang"><img src="../brand/logomark-mono-light.svg" alt="Logomark mono terang" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logomark mono terang</h3>
+        <p class="dim">SVG · satu warna</p>
+        <p class="note">Ikon satu warna untuk latar terang.</p>
+        <div class="row">
+          <code>brand/logomark-mono-light.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logomark-mono-light.svg" data-alt="Logomark mono terang">Salin MD</button>
+            <a class="mini solid" href="../brand/logomark-mono-light.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="logo" data-i="14" data-name="logomark mono gelap brand/logomark-mono-dark.svg">
+      <button class="thumb" type="button" data-open="14" aria-label="Perbesar Logomark mono gelap"><img src="../brand/logomark-mono-dark.svg" alt="Logomark mono gelap" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Logomark mono gelap</h3>
+        <p class="dim">SVG · satu warna</p>
+        <p class="note">Ikon satu warna untuk latar gelap.</p>
+        <div class="row">
+          <code>brand/logomark-mono-dark.svg</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="brand/logomark-mono-dark.svg" data-alt="Logomark mono gelap">Salin MD</button>
+            <a class="mini solid" href="../brand/logomark-mono-dark.svg" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="box" data-i="15" data-name="kotak perangkat lunak veilface promo/box-veilface.png">
+      <button class="thumb" type="button" data-open="15" aria-label="Perbesar Kotak perangkat lunak VeilFace"><img src="box-veilface.png" alt="Kotak perangkat lunak VeilFace" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Kotak perangkat lunak VeilFace</h3>
+        <p class="dim">1600×1200</p>
+        <p class="note">Render kemasan 3D dengan pantulan lantai: sisi depan, punggung, dan tutup.</p>
+        <div class="row">
+          <code>promo/box-veilface.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/box-veilface.png" data-alt="Kotak perangkat lunak VeilFace">Salin MD</button>
+            <a class="mini solid" href="box-veilface.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="box" data-i="16" data-name="kotak dwiproduk veil suite promo/box-veil-suite.png">
+      <button class="thumb" type="button" data-open="16" aria-label="Perbesar Kotak dwiproduk Veil Suite"><img src="box-veil-suite.png" alt="Kotak dwiproduk Veil Suite" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Kotak dwiproduk Veil Suite</h3>
+        <p class="dim">1800×1200</p>
+        <p class="note">VeilFace dan VeilKit berdampingan dalam satu komposisi.</p>
+        <div class="row">
+          <code>promo/box-veil-suite.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/box-veil-suite.png" data-alt="Kotak dwiproduk Veil Suite">Salin MD</button>
+            <a class="mini solid" href="box-veil-suite.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="poster" data-i="17" data-name="poster utama veilface promo/poster-veilface.png">
+      <button class="thumb" type="button" data-open="17" aria-label="Perbesar Poster utama VeilFace"><img src="poster-veilface.png" alt="Poster utama VeilFace" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Poster utama VeilFace</h3>
+        <p class="dim">1240×1754 · rasio A4</p>
+        <p class="note">Poster cetak: judul besar, tangkapan layar asli, dan strip statistik.</p>
+        <div class="row">
+          <code>promo/poster-veilface.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/poster-veilface.png" data-alt="Poster utama VeilFace">Salin MD</button>
+            <a class="mini solid" href="poster-veilface.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="poster" data-i="18" data-name="poster veil suite promo/poster-veil-suite.png">
+      <button class="thumb" type="button" data-open="18" aria-label="Perbesar Poster Veil Suite"><img src="poster-veil-suite.png" alt="Poster Veil Suite" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Poster Veil Suite</h3>
+        <p class="dim">1240×1754 · rasio A4</p>
+        <p class="note">Poster gabungan dengan dua palet dan pesan bersama.</p>
+        <div class="row">
+          <code>promo/poster-veil-suite.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/poster-veil-suite.png" data-alt="Poster Veil Suite">Salin MD</button>
+            <a class="mini solid" href="poster-veil-suite.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="poster" data-i="19" data-name="hero layar penuh promo/hero-1920x1080.png">
+      <button class="thumb" type="button" data-open="19" aria-label="Perbesar Hero layar penuh"><img src="hero-1920x1080.png" alt="Hero layar penuh" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Hero layar penuh</h3>
+        <p class="dim">1920×1080</p>
+        <p class="note">Spanduk utama untuk halaman muka, slide pembuka, dan layar acara.</p>
+        <div class="row">
+          <code>promo/hero-1920x1080.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/hero-1920x1080.png" data-alt="Hero layar penuh">Salin MD</button>
+            <a class="mini solid" href="hero-1920x1080.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="poster" data-i="20" data-name="hero veil suite promo/hero-veil-suite-1920x1080.png">
+      <button class="thumb" type="button" data-open="20" aria-label="Perbesar Hero Veil Suite"><img src="hero-veil-suite-1920x1080.png" alt="Hero Veil Suite" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Hero Veil Suite</h3>
+        <p class="dim">1920×1080</p>
+        <p class="note">Hero dwiproduk untuk pengumuman bundel.</p>
+        <div class="row">
+          <code>promo/hero-veil-suite-1920x1080.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/hero-veil-suite-1920x1080.png" data-alt="Hero Veil Suite">Salin MD</button>
+            <a class="mini solid" href="hero-veil-suite-1920x1080.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="poster" data-i="21" data-name="perbandingan sebelum → sesudah promo/compare-1600x900.png">
+      <button class="thumb" type="button" data-open="21" aria-label="Perbesar Perbandingan sebelum → sesudah"><img src="compare-1600x900.png" alt="Perbandingan sebelum → sesudah" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Perbandingan sebelum → sesudah</h3>
+        <p class="dim">1600×900</p>
+        <p class="note">Dua tangkapan layar asli dari ekstensi yang benar-benar berjalan.</p>
+        <div class="row">
+          <code>promo/compare-1600x900.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/compare-1600x900.png" data-alt="Perbandingan sebelum → sesudah">Salin MD</button>
+            <a class="mini solid" href="compare-1600x900.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="social" data-i="22" data-name="kiriman persegi promo/social-square-1080.png">
+      <button class="thumb" type="button" data-open="22" aria-label="Perbesar Kiriman persegi"><img src="social-square-1080.png" alt="Kiriman persegi" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Kiriman persegi</h3>
+        <p class="dim">1080×1080</p>
+        <p class="note">Instagram, LinkedIn, dan Facebook feed.</p>
+        <div class="row">
+          <code>promo/social-square-1080.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/social-square-1080.png" data-alt="Kiriman persegi">Salin MD</button>
+            <a class="mini solid" href="social-square-1080.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="social" data-i="23" data-name="story / reels vertikal promo/story-1080x1920.png">
+      <button class="thumb" type="button" data-open="23" aria-label="Perbesar Story / Reels vertikal"><img src="story-1080x1920.png" alt="Story / Reels vertikal" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Story / Reels vertikal</h3>
+        <p class="dim">1080×1920</p>
+        <p class="note">Rasio 9:16 untuk story, status, dan video vertikal.</p>
+        <div class="row">
+          <code>promo/story-1080x1920.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/story-1080x1920.png" data-alt="Story / Reels vertikal">Salin MD</button>
+            <a class="mini solid" href="story-1080x1920.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="social" data-i="24" data-name="kartu tautan (og) promo/og-1200x630.png">
+      <button class="thumb" type="button" data-open="24" aria-label="Perbesar Kartu tautan (OG)"><img src="og-1200x630.png" alt="Kartu tautan (OG)" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Kartu tautan (OG)</h3>
+        <p class="dim">1200×630</p>
+        <p class="note">Pratinjau tautan WhatsApp, X, Telegram, dan Open Graph.</p>
+        <div class="row">
+          <code>promo/og-1200x630.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/og-1200x630.png" data-alt="Kartu tautan (OG)">Salin MD</button>
+            <a class="mini solid" href="og-1200x630.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="social" data-i="25" data-name="kartu tautan veil suite promo/og-veil-suite-1200x630.png">
+      <button class="thumb" type="button" data-open="25" aria-label="Perbesar Kartu tautan Veil Suite"><img src="og-veil-suite-1200x630.png" alt="Kartu tautan Veil Suite" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Kartu tautan Veil Suite</h3>
+        <p class="dim">1200×630</p>
+        <p class="note">Pratinjau tautan untuk pengumuman dua ekstensi.</p>
+        <div class="row">
+          <code>promo/og-veil-suite-1200x630.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/og-veil-suite-1200x630.png" data-alt="Kartu tautan Veil Suite">Salin MD</button>
+            <a class="mini solid" href="og-veil-suite-1200x630.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+<article class="card on-dark" data-g="social" data-i="26" data-name="spanduk header x promo/banner-1500x500.png">
+      <button class="thumb" type="button" data-open="26" aria-label="Perbesar Spanduk header X"><img src="banner-1500x500.png" alt="Spanduk header X" loading="lazy" decoding="async"><span class="zoom">Perbesar</span></button>
+      <div class="meta">
+        <h3>Spanduk header X</h3>
+        <p class="dim">1500×500</p>
+        <p class="note">Header profil X/Twitter dan spanduk surel.</p>
+        <div class="row">
+          <code>promo/banner-1500x500.png</code>
+          <span class="acts">
+            <button type="button" class="mini" data-copy="promo/banner-1500x500.png" data-alt="Spanduk header X">Salin MD</button>
+            <a class="mini solid" href="banner-1500x500.png" download>Unduh</a>
+          </span>
+        </div>
+      </div>
+    </article>
+    </div>
+    <div class="empty" id="empty">Tidak ada aset yang cocok. Coba kata lain atau pilih “Semua”.</div>
+  </section>
+
+  <section id="merek">
+    <div class="sec-head"><div><h2>Bahasa merek</h2><p class="lede" style="margin:4px 0 0">Palet diturunkan dari subjek: perisai data untuk VeilFace, rona hangat untuk VeilKit.</p></div></div>
+    <div class="two">
+      <div class="panel">
+        <h3>Palet VeilFace</h3>
+        <div class="swatches">
+          <div class="swatch"><button type="button" data-hex="#FFB020" title="Salin #FFB020"><i style="background:#FFB020"></i><div><b>Primer</b><code>#FFB020</code></div></button></div><div class="swatch"><button type="button" data-hex="#FF6B3D" title="Salin #FF6B3D"><i style="background:#FF6B3D"></i><div><b>Sekunder</b><code>#FF6B3D</code></div></button></div><div class="swatch"><button type="button" data-hex="#FF3D71" title="Salin #FF3D71"><i style="background:#FF3D71"></i><div><b>Tersier</b><code>#FF3D71</code></div></button></div><div class="swatch"><button type="button" data-hex="#B4FF39" title="Salin #B4FF39"><i style="background:#B4FF39"></i><div><b>Aksen</b><code>#B4FF39</code></div></button></div><div class="swatch"><button type="button" data-hex="#B4FF39" title="Salin #B4FF39"><i style="background:#B4FF39"></i><div><b>Spark</b><code>#B4FF39</code></div></button></div><div class="swatch"><button type="button" data-hex="#0D0810" title="Salin #0D0810"><i style="background:#0D0810"></i><div><b>Latar</b><code>#0D0810</code></div></button></div><div class="swatch"><button type="button" data-hex="#1A1018" title="Salin #1A1018"><i style="background:#1A1018"></i><div><b>Permukaan</b><code>#1A1018</code></div></button></div><div class="swatch"><button type="button" data-hex="#FDF1E4" title="Salin #FDF1E4"><i style="background:#FDF1E4"></i><div><b>Teks</b><code>#FDF1E4</code></div></button></div>
+        </div>
+        <p class="hint">Klik kotak warna untuk menyalin kode hex.</p>
+      </div>
+      <div class="panel">
+        <h3>Palet VeilKit</h3>
+        <div class="swatches">
+          <div class="swatch"><button type="button" data-hex="#00E5C7" title="Salin #00E5C7"><i style="background:#00E5C7"></i><div><b>Primer</b><code>#00E5C7</code></div></button></div><div class="swatch"><button type="button" data-hex="#3DA5FF" title="Salin #3DA5FF"><i style="background:#3DA5FF"></i><div><b>Sekunder</b><code>#3DA5FF</code></div></button></div><div class="swatch"><button type="button" data-hex="#7C5CFF" title="Salin #7C5CFF"><i style="background:#7C5CFF"></i><div><b>Tersier</b><code>#7C5CFF</code></div></button></div><div class="swatch"><button type="button" data-hex="#FF3D71" title="Salin #FF3D71"><i style="background:#FF3D71"></i><div><b>Aksen</b><code>#FF3D71</code></div></button></div><div class="swatch"><button type="button" data-hex="#05070E" title="Salin #05070E"><i style="background:#05070E"></i><div><b>Latar</b><code>#05070E</code></div></button></div><div class="swatch"><button type="button" data-hex="#E8F1FF" title="Salin #E8F1FF"><i style="background:#E8F1FF"></i><div><b>Teks</b><code>#E8F1FF</code></div></button></div>
+        </div>
+        <p class="hint">Dua palet boleh bertemu hanya pada aset bertanda “Veil Suite”.</p>
+      </div>
+    </div>
+    <div class="logo-demo">
+      <div class="dark"><img src="../brand/logo-1600.png" alt="Logo di latar gelap"></div>
+      <div class="light"><img src="../brand/logo-1600-light.png" alt="Logo di latar terang"></div>
+    </div>
+    <div class="rules">
+      <div class="rule good"><b>Boleh</b><p>Sisakan ruang kosong minimal setinggi logomark di setiap sisi. Pakai versi mono saat latar ramai.</p></div>
+      <div class="rule good"><b>Boleh</b><p>Perkecil lockup sampai lebar 120 px; di bawah itu gunakan logomark saja.</p></div>
+      <div class="rule bad"><b>Jangan</b><p>Mengganti rona gradien, memiringkan, menambah bayangan jatuh, atau memasang logo di atas foto tanpa peredup.</p></div>
+      <div class="rule bad"><b>Jangan</b><p>Menulis ulang wordmark dengan font lain. Wordmark sudah dikunci pada Sora 800.</p></div>
+    </div>
+  </section>
+
+  <section id="pakai">
+    <div class="sec-head"><div><h2>Cara pakai cepat</h2></div></div>
+    <div class="two">
+      <div class="panel">
+        <h3>README &amp; dokumen</h3>
+        <ul>
+          <li>Spanduk atas: <code>promo/banner-1500x500.png</code></li>
+          <li>Pratinjau bergerak: <code>promo/veil-suite-preview.gif</code></li>
+          <li>Tautan sosial: <code>promo/og-1200x630.png</code></li>
+          <li>Ikon toko: <code>brand/logomark-1024.png</code></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Sosial &amp; cetak</h3>
+        <ul>
+          <li>Feed persegi: <code>promo/social-square-1080.png</code></li>
+          <li>Story 9:16: <code>promo/story-1080x1920.png</code></li>
+          <li>Cetak A4: <code>promo/poster-veilface.png</code> (1240×1754)</li>
+          <li>Slide 16:9: <code>promo/hero-1920x1080.png</code></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Studio di kanan</h3>
+        <ul>
+          <li>Semua penggeser berlaku seketika pada film dan cermin kecil di dock.</li>
+          <li><b>Ekspor bingkai</b> menyimpan PNG 1920×1080 dengan gaya yang sedang aktif.</li>
+          <li><b>Acak</b> memberi kombinasi gaya baru; <b>Reset</b> kembali ke netral.</li>
+          <li>Tombol suara di header mematikan seluruh audio dalam satu klik.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Unduh semua</h3>
+        <ul>
+          <li>Kode sumber: <code>git clone https://github.com/aisac-id/veilface</code></li>
+          <li>Folder <code>brand/</code> berisi 7 SVG + 5 PNG.</li>
+          <li>Folder <code>promo/</code> berisi 12 gambar, 1 GIF, dan 1 MP4.</li>
+          <li>Berkas besar (&gt;15 MB) hanya MP4; sisanya di bawah 2 MB.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="lisensi">
+    <div class="sec-head"><div><h2>Lisensi</h2></div></div>
+    <div class="panel">
+      <p style="margin:0 0 10px">Seluruh aset merek dan promosi di folder <code>brand/</code> dan <code>promo/</code> dirilis di bawah <b>lisensi MIT</b> yang sama dengan kode ekstensi. Boleh dipakai ulang, diubah, dan disebarluaskan — termasuk untuk keperluan komersial — selama pemberitahuan hak cipta dan lisensi disertakan.</p>
+      <p style="margin:0;color:var(--dim)">Foto orang pada halaman demo VeilFace berasal dari berkas uji lokal yang disertakan di repo dan hanya dipakai untuk memperagakan penyensoran. Font Sora dan JetBrains Mono berlisensi SIL OFL 1.1 (lihat <code>fonts/OFL.txt</code>).</p>
+    </div>
+    <footer>
+      <span>VeilFace · kit promosi v1.0 · dibuat untuk <a href="https://github.com/aisac-id" target="_blank" rel="noopener">aisac-id</a></span>
+      <span><a href="https://github.com/aisac-id/veilface" target="_blank" rel="noopener">veilface</a> · <a href="https://github.com/aisac-id/veilkit" target="_blank" rel="noopener">veilkit</a> · MIT</span>
+    </footer>
+  </section>
+</div>
+
+<aside class="dock" id="dock" aria-label="Kontrol studio">
+  <div class="top">
+    <span class="k">STUDIO</span>
+    <h2>Gaya panggung</h2>
+    <span style="flex:1"></span>
+    <span class="k" id="styleTag">NETRAL</span>
+  </div>
+  <div class="mirror"><canvas id="mirror" width="576" height="324"></canvas><span class="tag">CERMIN LANGSUNG</span></div>
+  <div class="body">
+    <span class="grp">Warna &amp; cahaya</span>
+    <div class="ctl"><span class="lab">Saturasi <b id="vSat">100%</b></span><input type="range" id="sat" min="0" max="220" value="100"></div>
+    <div class="ctl"><span class="lab">Rona <b id="vHue">0°</b></span><input type="range" id="hue" min="-180" max="180" value="0"></div>
+    <div class="ctl"><span class="lab">Kontras <b id="vCon">100%</b></span><input type="range" id="con" min="60" max="160" value="100"></div>
+    <div class="ctl"><span class="lab">Kecerahan <b id="vBri">100%</b></span><input type="range" id="bri" min="60" max="150" value="100"></div>
+    <div class="ctl"><span class="lab">Bloom <b id="vBloom">0%</b></span><input type="range" id="bloom" min="0" max="100" value="0"></div>
+    <hr>
+    <span class="grp">Tekstur &amp; bingkai</span>
+    <div class="ctl"><span class="lab">Grain <b id="vGrain">0%</b></span><input type="range" id="grain" min="0" max="100" value="0"></div>
+    <div class="ctl"><span class="lab">Scanline <b id="vScan">0%</b></span><input type="range" id="scan" min="0" max="100" value="0"></div>
+    <div class="ctl"><span class="lab">Zoom <b id="vZoom">1.00×</b></span><input type="range" id="zoom" min="100" max="180" value="100"></div>
+    <div class="ctl"><span class="lab">Kecepatan <b id="vSpeed">1.00×</b></span><input type="range" id="speed" min="25" max="200" value="100"></div>
+    <hr>
+    <span class="grp">Tampilan</span>
+    <div class="ctl"><span class="lab">Tema halaman</span>
+      <select id="theme">
+        <option value="brand">VeilFace</option>
+        <option value="alt">VeilKit</option>
+        <option value="suite">Veil Suite</option>
+        <option value="mono">Monokrom</option>
+      </select>
+    </div>
+    <div class="toggles">
+      <button class="sw" id="swGuides" type="button" aria-pressed="false"><i></i>Panduan</button>
+      <button class="sw on" id="swLoop" type="button" aria-pressed="true"><i></i>Ulang</button>
+    </div>
+    <div class="acts">
+      <button class="btn" id="reset" type="button">Reset</button>
+      <button class="btn" id="rand" type="button">Acak</button>
+      <button class="btn pri wide" id="export" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg>
+        Ekspor bingkai PNG
+      </button>
+    </div>
+    <p class="hint">Gaya hanya mengubah pratinjau di halaman ini. Berkas asli di repo tidak tersentuh.</p>
+  </div>
+</aside>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Pratinjau aset">
+  <div class="top">
+    <h3 id="lbTitle">—</h3><span class="d" id="lbDim"></span>
+    <span style="flex:1"></span>
+    <a class="mini solid" id="lbDl" href="#" download>Unduh</a>
+    <button class="mini" id="lbCopy" type="button">Salin MD</button>
+    <button class="iconbtn" id="lbClose" type="button" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="view" id="lbView"></div>
+  <div class="bot"><span class="d" id="lbPath" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim)"></span></div>
+  <button class="nav prev" id="lbPrev" type="button" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m14 6-6 6 6 6"/></svg></button>
+  <button class="nav next" id="lbNext" type="button" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m10 6 6 6-6 6"/></svg></button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ASSETS = [{"f":"promo/veil-suite-promo.mp4","s":"veil-suite-promo.mp4","t":"Video promosi Veil Suite","d":"1920×1080 · 28 s · 30 fps · H.264 + AAC","kind":"mp4","dark":true,"poster":"video-poster.jpg"},{"f":"promo/veil-suite-preview.gif","s":"veil-suite-preview.gif","t":"Pratinjau animasi (GIF)","d":"560×315 · 10 fps · 7,0 MB","kind":"gif","dark":true,"poster":null},{"f":"promo/video-poster.jpg","s":"video-poster.jpg","t":"Poster frame video","d":"1920×1080 · JPEG","kind":"jpg","dark":true,"poster":null},{"f":"brand/logo.svg","s":"../brand/logo.svg","t":"Logo utama (vektor)","d":"SVG · font tersemat","kind":"svg","dark":true,"poster":null},{"f":"brand/logo-1600.png","s":"../brand/logo-1600.png","t":"Logo utama (PNG)","d":"1600×356 · transparan","kind":"png","dark":true,"poster":null},{"f":"brand/logo-1600-light.png","s":"../brand/logo-1600-light.png","t":"Logo di latar terang","d":"1600×356","kind":"png","dark":false,"poster":null},{"f":"brand/logo-stacked.svg","s":"../brand/logo-stacked.svg","t":"Logo bertumpuk (vektor)","d":"SVG · font tersemat","kind":"svg","dark":true,"poster":null},{"f":"brand/logo-stacked-900.png","s":"../brand/logo-stacked-900.png","t":"Logo bertumpuk (PNG)","d":"900×643 · transparan","kind":"png","dark":true,"poster":null},{"f":"brand/logomark.svg","s":"../brand/logomark.svg","t":"Logomark (vektor)","d":"SVG","kind":"svg","dark":true,"poster":null},{"f":"brand/logomark-1024.png","s":"../brand/logomark-1024.png","t":"Logomark 1024","d":"1024×1024 · transparan","kind":"png","dark":true,"poster":null},{"f":"brand/logo-mono-light.svg","s":"../brand/logo-mono-light.svg","t":"Mono untuk latar terang","d":"SVG · satu warna","kind":"svg","dark":false,"poster":null},{"f":"brand/logo-mono-dark.svg","s":"../brand/logo-mono-dark.svg","t":"Mono untuk latar gelap","d":"SVG · satu warna","kind":"svg","dark":true,"poster":null},{"f":"brand/logo-mono-white.png","s":"../brand/logo-mono-white.png","t":"Mono putih (PNG)","d":"1200×267 · transparan","kind":"png","dark":true,"poster":null},{"f":"brand/logomark-mono-light.svg","s":"../brand/logomark-mono-light.svg","t":"Logomark mono terang","d":"SVG · satu warna","kind":"svg","dark":false,"poster":null},{"f":"brand/logomark-mono-dark.svg","s":"../brand/logomark-mono-dark.svg","t":"Logomark mono gelap","d":"SVG · satu warna","kind":"svg","dark":true,"poster":null},{"f":"promo/box-veilface.png","s":"box-veilface.png","t":"Kotak perangkat lunak VeilFace","d":"1600×1200","kind":"png","dark":true,"poster":null},{"f":"promo/box-veil-suite.png","s":"box-veil-suite.png","t":"Kotak dwiproduk Veil Suite","d":"1800×1200","kind":"png","dark":true,"poster":null},{"f":"promo/poster-veilface.png","s":"poster-veilface.png","t":"Poster utama VeilFace","d":"1240×1754 · rasio A4","kind":"png","dark":true,"poster":null},{"f":"promo/poster-veil-suite.png","s":"poster-veil-suite.png","t":"Poster Veil Suite","d":"1240×1754 · rasio A4","kind":"png","dark":true,"poster":null},{"f":"promo/hero-1920x1080.png","s":"hero-1920x1080.png","t":"Hero layar penuh","d":"1920×1080","kind":"png","dark":true,"poster":null},{"f":"promo/hero-veil-suite-1920x1080.png","s":"hero-veil-suite-1920x1080.png","t":"Hero Veil Suite","d":"1920×1080","kind":"png","dark":true,"poster":null},{"f":"promo/compare-1600x900.png","s":"compare-1600x900.png","t":"Perbandingan sebelum → sesudah","d":"1600×900","kind":"png","dark":true,"poster":null},{"f":"promo/social-square-1080.png","s":"social-square-1080.png","t":"Kiriman persegi","d":"1080×1080","kind":"png","dark":true,"poster":null},{"f":"promo/story-1080x1920.png","s":"story-1080x1920.png","t":"Story / Reels vertikal","d":"1080×1920","kind":"png","dark":true,"poster":null},{"f":"promo/og-1200x630.png","s":"og-1200x630.png","t":"Kartu tautan (OG)","d":"1200×630","kind":"png","dark":true,"poster":null},{"f":"promo/og-veil-suite-1200x630.png","s":"og-veil-suite-1200x630.png","t":"Kartu tautan Veil Suite","d":"1200×630","kind":"png","dark":true,"poster":null},{"f":"promo/banner-1500x500.png","s":"banner-1500x500.png","t":"Spanduk header X","d":"1500×500","kind":"png","dark":true,"poster":null}];
+const CHAPTERS = [
+  { t: 0,    n: 'Pembuka' },
+  { t: 3.2,  n: 'VeilKit · pemindaian' },
+  { t: 9.0,  n: '14 efek VFX' },
+  { t: 13.0, n: 'VeilFace · wajah' },
+  { t: 19.0, n: 'Statistik suite' },
+  { t: 23.5, n: 'Pasang gratis' }
+];
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+const film = $('#film'), stage = $('#stage');
+const toastEl = $('#toast');
+let toastT = 0;
+function toast(msg) {
+  toastEl.textContent = msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 1900);
+}
+
+/* ---------- suara: aktif secara bawaan, satu tombol mematikan semuanya ---------- */
+let soundOn = true;
+function paintSound() {
+  $('#sndOn').style.display = soundOn ? '' : 'none';
+  $('#sndOff').style.display = soundOn ? 'none' : '';
+  $('#sndLbl').textContent = 'Suara: ' + (soundOn ? 'aktif' : 'mati');
+  $('#sound').classList.toggle('live', soundOn);
+  $('#sound').setAttribute('aria-pressed', String(soundOn));
+  film.muted = !soundOn;
+  $$('video').forEach((v) => { if (v !== film) v.muted = true; });
+}
+$('#sound').addEventListener('click', () => {
+  soundOn = !soundOn; paintSound();
+  if (soundOn) { film.play().catch(() => {}); }
+  toast(soundOn ? 'Suara dinyalakan' : 'Semua suara dimatikan');
+});
+paintSound();
+
+/* ---------- pemutaran ---------- */
+function paintPlay() {
+  const p = !film.paused;
+  $('#icPlay').style.display = p ? 'none' : '';
+  $('#icPause').style.display = p ? '' : 'none';
+}
+film.addEventListener('play', paintPlay);
+film.addEventListener('pause', paintPlay);
+$('#play').addEventListener('click', () => { film.paused ? film.play().catch(() => {}) : film.pause(); });
+$('#tap').addEventListener('click', () => {
+  $('#tap').classList.remove('show');
+  film.muted = !soundOn;
+  film.play().catch(() => { toast('Ketuk sekali lagi untuk memutar'); });
+});
+film.volume = 0.85;
+film.addEventListener('loadeddata', () => {
+  film.play().then(() => { $('#tap').classList.remove('show'); }).catch(() => { $('#tap').classList.add('show'); });
+});
+setTimeout(() => { if (film.paused) $('#tap').classList.add('show'); }, 1200);
+
+const fmt = (s) => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+const seek = $('#seek');
+film.addEventListener('timeupdate', () => {
+  if (!seeking) { seek.value = film.currentTime; paintRange(seek); }
+  $('#time').textContent = fmt(film.currentTime) + ' / 00:28';
+  let ci = 0;
+  CHAPTERS.forEach((c, i) => { if (film.currentTime >= c.t) ci = i; });
+  $('#chapName').textContent = CHAPTERS[ci].n;
+  $$('#chapters button').forEach((b, i) => b.classList.toggle('on', i === ci));
+  if (!film.paused || dirty) drawMirror();
+});
+let seeking = false;
+seek.addEventListener('input', () => { seeking = true; film.currentTime = +seek.value; paintRange(seek); dirty = true; });
+seek.addEventListener('change', () => { seeking = false; });
+$('#chapters').innerHTML = CHAPTERS.map((c) => '<button type="button" data-t="' + c.t + '">' + fmt(c.t) + ' · ' + c.n + '</button>').join('');
+$$('#chapters button').forEach((b) => b.addEventListener('click', () => {
+  film.currentTime = +b.dataset.t; dirty = true;
+  if (film.paused) film.play().catch(() => {});
+}));
+
+/* ---------- kontrol gaya langsung ---------- */
+const S = { sat: 100, hue: 0, con: 100, bri: 100, bloom: 0, grain: 0, scan: 0, zoom: 100, speed: 100 };
+const DEF = { ...S };
+function paintRange(el) {
+  const min = +el.min, max = +el.max;
+  el.style.setProperty('--fill', ((+el.value - min) / (max - min) * 100).toFixed(1) + '%');
+}
+function apply() {
+  const st = stage.style;
+  st.setProperty('--sat', S.sat / 100);
+  st.setProperty('--hue', S.hue + 'deg');
+  st.setProperty('--con', S.con / 100);
+  st.setProperty('--bri', S.bri / 100);
+  st.setProperty('--zoom', S.zoom / 100);
+  st.setProperty('--bloom', S.bloom / 100 * 0.85);
+  st.setProperty('--grain', S.grain / 100 * 0.5);
+  st.setProperty('--scan', S.scan / 100 * 0.7);
+  film.playbackRate = S.speed / 100;
+  $('#vSat').textContent = S.sat + '%';
+  $('#vHue').textContent = S.hue + '°';
+  $('#vCon').textContent = S.con + '%';
+  $('#vBri').textContent = S.bri + '%';
+  $('#vBloom').textContent = S.bloom + '%';
+  $('#vGrain').textContent = S.grain + '%';
+  $('#vScan').textContent = S.scan + '%';
+  $('#vZoom').textContent = (S.zoom / 100).toFixed(2) + '×';
+  $('#vSpeed').textContent = (S.speed / 100).toFixed(2) + '×';
+  const touched = Object.keys(DEF).filter((k) => S[k] !== DEF[k]).length;
+  $('#styleTag').textContent = touched ? touched + ' UBAHAN' : 'NETRAL';
+  Object.keys(S).forEach((k) => { const el = $('#' + k); if (el) { el.value = S[k]; paintRange(el); } });
+  dirty = true; drawMirror();
+}
+Object.keys(S).forEach((k) => {
+  const el = $('#' + k);
+  el.addEventListener('input', () => { S[k] = +el.value; apply(); });
+  paintRange(el);
+});
+$('#reset').addEventListener('click', () => { Object.assign(S, DEF); apply(); toast('Gaya dikembalikan ke netral'); });
+$('#rand').addEventListener('click', () => {
+  const R = (a, b) => Math.round(a + Math.random() * (b - a));
+  Object.assign(S, { sat: R(70, 190), hue: R(-140, 140), con: R(85, 140), bri: R(85, 125),
+    bloom: R(0, 70), grain: R(0, 55), scan: R(0, 60), zoom: R(100, 145), speed: 100 });
+  apply(); toast('Gaya baru diacak');
+});
+$('#theme').addEventListener('change', (e) => { document.body.dataset.theme = e.target.value; dirty = true; drawMirror(); });
+function sw(id, fn) {
+  const b = $(id);
+  b.addEventListener('click', () => {
+    const on = !b.classList.contains('on');
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); fn(on);
+  });
+}
+sw('#swGuides', (on) => stage.classList.toggle('guides-on', on));
+sw('#swLoop', (on) => { film.loop = on; });
+
+/* ---------- cermin langsung di dock ---------- */
+const mir = $('#mirror'), mctx = mir.getContext('2d');
+let dirty = true;
+function cssVar(n) { return getComputedStyle(document.body).getPropertyValue(n).trim(); }
+function drawMirror() {
+  if (!film.videoWidth) return;
+  const w = mir.width, h = mir.height;
+  mctx.setTransform(1, 0, 0, 1, 0, 0);
+  mctx.filter = 'none'; mctx.globalAlpha = 1; mctx.globalCompositeOperation = 'source-over';
+  mctx.fillStyle = '#04040A'; mctx.fillRect(0, 0, w, h);
+  const z = S.zoom / 100;
+  mctx.save();
+  mctx.translate(w / 2, h / 2); mctx.scale(z, z); mctx.translate(-w / 2, -h / 2);
+  mctx.filter = 'saturate(' + S.sat / 100 + ') hue-rotate(' + S.hue + 'deg) contrast(' + S.con / 100 + ') brightness(' + S.bri / 100 + ')';
+  mctx.drawImage(film, 0, 0, w, h);
+  mctx.restore();
+  mctx.filter = 'none';
+  if (S.bloom) {
+    mctx.globalCompositeOperation = 'screen';
+    mctx.globalAlpha = S.bloom / 100 * 0.85;
+    const g = mctx.createRadialGradient(w / 2, h * 0.45, 0, w / 2, h * 0.45, w * 0.6);
+    g.addColorStop(0, cssVar('--a')); g.addColorStop(1, 'transparent');
+    mctx.fillStyle = g; mctx.fillRect(0, 0, w, h);
+    mctx.globalCompositeOperation = 'source-over'; mctx.globalAlpha = 1;
+  }
+  if (S.scan) {
+    mctx.globalAlpha = S.scan / 100 * 0.5; mctx.fillStyle = '#000';
+    for (let y = 0; y < h; y += 4) mctx.fillRect(0, y, w, 2);
+    mctx.globalAlpha = 1;
+  }
+  if (S.grain) {
+    mctx.globalAlpha = S.grain / 100 * 0.22;
+    mctx.globalCompositeOperation = 'overlay';
+    mctx.fillStyle = noisePattern || '#888';
+    mctx.fillRect(0, 0, w, h);
+    mctx.globalCompositeOperation = 'source-over'; mctx.globalAlpha = 1;
+  }
+  dirty = false;
+}
+let noisePattern = null;
+(function makeNoise() {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d'), d = x.createImageData(128, 128);
+  for (let i = 0; i < d.data.length; i += 4) {
+    const v = 90 + Math.random() * 130;
+    d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255;
+  }
+  x.putImageData(d, 0, 0);
+  noisePattern = mctx.createPattern(c, 'repeat');
+})();
+film.addEventListener('seeked', () => { dirty = true; drawMirror(); });
+film.addEventListener('loadeddata', () => { dirty = true; drawMirror(); });
+(function tick() { if (!film.paused) drawMirror(); requestAnimationFrame(tick); })();
+
+/* ---------- ekspor bingkai ---------- */
+$('#export').addEventListener('click', () => {
+  if (!film.videoWidth) { toast('Film belum siap'); return; }
+  const c = document.createElement('canvas');
+  c.width = 1920; c.height = 1080;
+  const x = c.getContext('2d');
+  x.fillStyle = '#04040A'; x.fillRect(0, 0, c.width, c.height);
+  const z = S.zoom / 100;
+  x.save();
+  x.translate(c.width / 2, c.height / 2); x.scale(z, z); x.translate(-c.width / 2, -c.height / 2);
+  x.filter = 'saturate(' + S.sat / 100 + ') hue-rotate(' + S.hue + 'deg) contrast(' + S.con / 100 + ') brightness(' + S.bri / 100 + ')';
+  x.drawImage(film, 0, 0, c.width, c.height);
+  x.restore(); x.filter = 'none';
+  if (S.bloom) {
+    x.globalCompositeOperation = 'screen'; x.globalAlpha = S.bloom / 100 * 0.85;
+    const g = x.createRadialGradient(960, 486, 0, 960, 486, 1150);
+    g.addColorStop(0, cssVar('--a')); g.addColorStop(1, 'transparent');
+    x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
+    x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1;
+  }
+  if (S.scan) {
+    x.globalAlpha = S.scan / 100 * 0.5; x.fillStyle = '#000';
+    for (let y = 0; y < 1080; y += 6) x.fillRect(0, y, 1920, 3);
+    x.globalAlpha = 1;
+  }
+  if (S.grain) {
+    const nc = document.createElement('canvas'); nc.width = nc.height = 256;
+    const nx = nc.getContext('2d'), d = nx.createImageData(256, 256);
+    for (let i = 0; i < d.data.length; i += 4) {
+      const v = 90 + Math.random() * 130;
+      d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255;
+    }
+    nx.putImageData(d, 0, 0);
+    x.globalAlpha = S.grain / 100 * 0.22; x.globalCompositeOperation = 'overlay';
+    x.fillStyle = x.createPattern(nc, 'repeat'); x.fillRect(0, 0, 1920, 1080);
+    x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1;
+  }
+  const a = document.createElement('a');
+  a.download = 'veilface-bingkai-' + film.currentTime.toFixed(2).replace('.', '_') + 's.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+  toast('Bingkai PNG diunduh');
+});
+
+/* ---------- pencarian & saringan ---------- */
+let filter = 'all', query = '';
+function runFilter() {
+  let shown = 0;
+  $$('#grid .card').forEach((card) => {
+    const okG = filter === 'all' || card.dataset.g === filter;
+    const okQ = !query || card.dataset.name.includes(query);
+    const ok = okG && okQ;
+    card.classList.toggle('hide', !ok);
+    if (ok) shown++;
+  });
+  $('#count').textContent = shown + ' BERKAS';
+  $('#empty').classList.toggle('show', shown === 0);
+}
+$('#q').addEventListener('input', (e) => { query = e.target.value.trim().toLowerCase(); runFilter(); });
+$$('#filters button').forEach((b) => b.addEventListener('click', () => {
+  filter = b.dataset.f;
+  $$('#filters button').forEach((o) => o.classList.toggle('on', o === b));
+  runFilter();
+}));
+
+/* ---------- salin ---------- */
+async function copy(text, msg) {
+  try { await navigator.clipboard.writeText(text); toast(msg); }
+  catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); toast(msg); } catch (e2) { toast('Salin manual: ' + text); }
+    ta.remove();
+  }
+}
+$$('[data-copy]').forEach((b) => b.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const f = b.dataset.copy, alt = b.dataset.alt;
+  copy(f.endsWith('.mp4') ? '[' + alt + '](' + f + ')' : '![' + alt + '](' + f + ')', 'Markdown disalin');
+}));
+$$('[data-hex]').forEach((b) => b.addEventListener('click', () => copy(b.dataset.hex, b.dataset.hex + ' disalin')));
+
+/* ---------- lightbox ---------- */
+const lb = $('#lb');
+let lbIndex = 0;
+function openLb(i) {
+  lbIndex = (i + ASSETS.length) % ASSETS.length;
+  const a = ASSETS[lbIndex];
+  $('#lbTitle').textContent = a.t;
+  $('#lbDim').textContent = a.d;
+  $('#lbPath').textContent = a.f;
+  $('#lbDl').href = a.s;
+  const view = $('#lbView');
+  view.classList.toggle('light', !a.dark);
+  view.innerHTML = a.kind === 'mp4'
+    ? '<video src="' + a.s + '" poster="' + a.poster + '" controls autoplay loop playsinline></video>'
+    : '<img src="' + a.s + '" alt="' + a.t + '">';
+  const v = view.querySelector('video');
+  if (v) { v.muted = !soundOn; film.pause(); }
+  lb.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  lb.classList.remove('show');
+  $('#lbView').innerHTML = '';
+  document.body.style.overflow = '';
+}
+$$('[data-open]').forEach((b) => b.addEventListener('click', () => openLb(+b.dataset.open)));
+$('#lbClose').addEventListener('click', closeLb);
+$('#lbPrev').addEventListener('click', () => openLb(lbIndex - 1));
+$('#lbNext').addEventListener('click', () => openLb(lbIndex + 1));
+$('#lbCopy').addEventListener('click', () => {
+  const a = ASSETS[lbIndex];
+  copy(a.kind === 'mp4' ? '[' + a.t + '](' + a.f + ')' : '![' + a.t + '](' + a.f + ')', 'Markdown disalin');
+});
+lb.addEventListener('click', (e) => { if (e.target === lb || e.target === $('#lbView')) closeLb(); });
+document.addEventListener('keydown', (e) => {
+  if (lb.classList.contains('show')) {
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') openLb(lbIndex - 1);
+    if (e.key === 'ArrowRight') openLb(lbIndex + 1);
+    return;
+  }
+  if (e.target.matches('input,select,textarea')) return;
+  if (e.key === ' ') { e.preventDefault(); film.paused ? film.play().catch(() => {}) : film.pause(); }
+  if (e.key.toLowerCase() === 'm') $('#sound').click();
+  if (e.key.toLowerCase() === 'r') $('#rand').click();
+});
+
+/* ---------- nav aktif + reveal bertahap ---------- */
+const secs = $$('section[id]');
+const navLinks = $$('#nav a');
+const io = new IntersectionObserver((es) => {
+  es.forEach((en) => {
+    if (en.isIntersecting) {
+      navLinks.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+secs.forEach((s) => io.observe(s));
+const reveal = new IntersectionObserver((es) => {
+  es.forEach((en, i) => {
+    if (en.isIntersecting) {
+      setTimeout(() => en.target.classList.add('in'), Math.min(i * 55, 330));
+      reveal.unobserve(en.target);
+    }
+  });
+}, { rootMargin: '0px 0px -8% 0px' });
+$$('.card').forEach((c) => reveal.observe(c));
+
+/* ---------- pratinjau bergerak pada kartu video ---------- */
+$$('#grid video').forEach((v) => {
+  const card = v.closest('.card');
+  card.addEventListener('mouseenter', () => { v.play().catch(() => {}); });
+  card.addEventListener('mouseleave', () => { v.pause(); });
+});
+
+/* tinggi header nyata menentukan offset jangkar dan bantalan konten */
+const headEl = document.querySelector('header');
+function syncHead() {
+  document.documentElement.style.setProperty('--head', headEl.offsetHeight + 'px');
+}
+syncHead();
+addEventListener('resize', syncHead);
+if (window.ResizeObserver) new ResizeObserver(syncHead).observe(headEl);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHead);
+
+apply();
+runFilter();
+paintPlay();
+</script>
+</body>
+</html>
