@@ -116,6 +116,14 @@ Setelah mengubah berkas, klik **Reload** pada kartu ekstensi di `chrome://extens
 </p>
 
 <p align="center">
+  <img src="promo/hero-1920x1080.png" alt="Spanduk utama VeilFace 1920×1080" width="100%">
+</p>
+
+<p align="center">
+  <img src="promo/poster-veilface.png" alt="Poster A4 VeilFace" width="420">
+</p>
+
+<p align="center">
   <img src="promo/box-veilface.png" alt="Kotak perangkat lunak VeilFace" width="720">
 </p>
 
